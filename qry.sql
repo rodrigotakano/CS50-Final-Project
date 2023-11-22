@@ -1,0 +1,1 @@
+CREATE TABLE teste2 (a INTEGER);
