@@ -13,10 +13,13 @@
         </thead>
 
             <tbody>
-                {% for name in tables %}
-                    <tr>                        
-                        <td>{{ name[0] }}</td>                        
-                    </tr>
+                {% for name in tables %}                
+                <tr>                                               
+                    <td name="table">
+                        {{ name[0] }}
+                        <a href="{{ url_for('tableview', tablename=name[0]) }}" class="btn btn-primary" type="submit">Open</button> 
+                    </td>                                              
+                </tr>                
                 {% endfor %}                
             </tbody>
     </table>

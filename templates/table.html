@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Table
+{% endblock %}
+
+{% block main %} 
+
+<table>    
+    <thead>
+        <tr> 
+            {% for column in column_names %}           
+                <th>{{ column }}</th>
+            {% endfor %}
+        </tr>           
+    </thead>
+    
+        <tbody>
+            {% for tpl in table %}
+                <tr>
+                    {% for lst in tpl %}
+                        <td>{{ lst }}</td> 
+                    {% endfor %}                                    
+                </tr>
+            {% endfor %}                           
+        </tbody>
+    
+</table>
+
+{% endblock %}

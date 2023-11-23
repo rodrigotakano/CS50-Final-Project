@@ -1,1 +1,1 @@
-CREATE TABLE teste2 (a INTEGER);
+INSERT INTO teste (a, b) VALUES (867, 5235);

@@ -19,6 +19,8 @@ def view():
     tables = c.execute("SELECT name FROM sqlite_master WHERE type='table';")    
     return render_template("view.html", tables = tables)
 
-@app.route("/open", methods=["POST"])
-def open():
-    return render_template("open.html")
+@app.route("/table/<tablename>")
+def tableview(tablename):
+    table = c.execute("SELECT * FROM {}".format(tablename))
+    column_names = [description[0] for description in table.description] 
+    return render_template('table.html', table = table, column_names = column_names)
