@@ -2,7 +2,7 @@
  This is the final project for the CS50 course
 
 Todo list:
-    - Implement functionalities:
+    - Implement functionalities
         - Remove rows from table
         - Create new table
     
