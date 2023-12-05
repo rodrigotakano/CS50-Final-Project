@@ -6,6 +6,28 @@
 
 {% block main %} 
 
+<div class="d-flex align-items-center">
+    <div class="container text-center">        
+        Add row to table <br>
+        <div class="row">
+            <table>
+                <form action="/add" method="post">
+                {% for column in column_names %}
+                    <div class="col">                        
+                        <input type="text" name="{{ loop.index0 }}">       
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="table" value="{{ tablename }}">
+                <input type="hidden" name="column" value="{{ column_names }}">
+                <input type="submit" value="Add">
+                </form>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
 <table>    
     <thead>
         <tr> 

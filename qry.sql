@@ -1,1 +1,1 @@
-INSERT INTO teste (a, b) VALUES (867, 5235);
+INSERT INTO teste2 (a, b, c) VALUES (123, 34435, 236);
