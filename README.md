@@ -2,9 +2,10 @@
  This is the final project for the CS50 course
 
 Todo list:
+
     - Implement functionalities
-        - Remove rows from table
-        - Create new table
+        - Improve injection security (mainly in the "Delete row" and "Add values" functionalities)        
+        - Drop table
     
     - Frontend improvements
         - Layout

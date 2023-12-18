@@ -12,14 +12,14 @@
         <div class="row">
             <table>
                 <form action="/add" method="post">
-                {% for column in column_names %}
-                    <div class="col">                        
-                        <input type="text" name="{{ loop.index0 }}">       
-                    </div>
-                {% endfor %}
-                <input type="hidden" name="table" value="{{ tablename }}">
-                <input type="hidden" name="column" value="{{ column_names }}">
-                <input type="submit" value="Add">
+                    {% for column in column_names %}
+                        <div class="col">                        
+                            <input type="text" name="{{ loop.index0 }}">       
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" name="table" value="{{ tablename }}">
+                    <input type="hidden" name="column" value="{{ column_names }}">
+                    <input type="submit" value="Add">
                 </form>
 
             </table>
@@ -37,16 +37,23 @@
         </tr>           
     </thead>
     
-        <tbody>
-            {% for tpl in table %}
-                <tr>
+    <tbody>
+        {% for tpl in table_shown %}
+            <form action="/delete" method="post">
+                <tr>                
                     {% for lst in tpl %}
-                        <td>{{ lst }}</td> 
-                    {% endfor %}                                    
+                        <td>{{ lst }}</td>                    
+                    {% endfor %}                      
+                    <td>
+                        <input type="submit" value="Delete Row">                        
+                        <input type="hidden" name="table" value="{{ tablename }}">
+                        <input type="hidden" name="rowid" value="{{ table_rowid[loop.index0] }}"
+                    </td>                                                                                        
                 </tr>
-            {% endfor %}                           
-        </tbody>
-    
+            </form>
+        {% endfor %} 
+                                      
+    </tbody>
 </table>
 
 {% endblock %}

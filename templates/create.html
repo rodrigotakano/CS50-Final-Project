@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+    <form action="/create" method="POST">
+        <label for="tablename">Enter the name of the table</label>
+        <input type="text" name="tablename">
+        <label for="column_number">Enter the number of columns</label>
+        <input type="text" name="column_number">
+        <input type="Submit" value="Submit">
+    </form>
+
+
+{% endblock %}

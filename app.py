@@ -30,9 +30,25 @@ def tableview(tablename):
     if injection_check(tablename):
 
         # Fetch table from database and send it to the html template
-        table = c.execute("SELECT * FROM {}".format(tablename))
-        column_names = [description[0] for description in table.description]        
-        return render_template("table.html", table = table, column_names = column_names, tablename = tablename)
+        table = c.execute("SELECT rowid,* FROM {}".format(tablename))
+        
+        # Transform sqlite cursor object to list
+        table_shown = []
+        for i in table:
+            table_shown.append(i)
+
+        # Create separate lists for rowid and displayed table
+        table_rowid = []
+        table_temp = []       
+        for index, i in enumerate(table_shown):
+            table_rowid.append(table_shown[index][0])
+            table_temp.append(table_shown[index][1:])               
+        table_shown = table_temp
+        print(table_rowid)             
+        
+        column_names = [description[0] for description in table.description[1:]]  
+             
+        return render_template("table.html", table_shown = table_shown, table_rowid = table_rowid, column_names = column_names, tablename = tablename)
     else:
         return render_template("error.html")
     
@@ -57,30 +73,80 @@ def add():
         columns = Add(column_names)       
 
         # Insert values into table
-        c.execute("INSERT INTO {} VALUES({})".format(tablename, columns.placeholders()), values)
-                                             
+        c.execute("INSERT INTO {} VALUES({})".format(tablename, columns.placeholders()), values)   
+        con.commit()     
+        
+
+        return render_template("add.html", tablename=tablename)                                
    
     # If table name contains malicious characters 
     else:
-        return render_template("error.html")  
+        return render_template("error.html")    
+       
+    
+@app.route("/delete", methods=["POST"])
+def delete():  
+    tablename = request.form.get("table")
 
-    
-    
-    
-
-    """
+    # Check for user injected malicious characters
     if injection_check(tablename):
-        column_count = c.execute("SELECT COUNT(*) FROM pragma_table_info('{}')".format(tablename))
-        column_count = int(list(column_count)[0][0])
-        print(column_count)
-        for i in range(column_count - 1):
-            
 
-        return render_template("add.html")
+        # Fetch table from database
+        table = c.execute("SELECT rowid,* FROM {}".format(tablename))        
+
+        # Get which row was selected to be deleted
+        rowid = int(request.form.get("rowid"))       
+                
+        c.execute("DELETE FROM {} WHERE rowid={}".format(tablename, rowid))
+        con.commit()
+        return render_template("delete.html", tablename=tablename)
+
+    # If table name contains malicious characters 
     else:
-        return render_template("add.html")
-    """
+        return render_template("error.html") 
 
-    return render_template("add.html")
+    
+@app.route("/create", methods=["GET", "POST"])
+def create():           
+    if request.method == "GET":
+        return render_template("create.html")
+    
+    elif request.method == "POST":
+        tablename = request.form.get("tablename")
+        if injection_check(tablename):
+            column_number = request.form.get("column_number")
+            if column_number.isdigit():
+                column_number = int(column_number)
+                datatypes = ["NULL", "INTEGER", "REAL", "TEXT", "BLOB"]
+                return render_template("create_parameters.html", column_number=column_number, datatypes=datatypes, tablename=tablename)                
+            else:
+                return render_template("error.html")
+        else:
+            return render_template("error.html")
+        
+    
+@app.route("/newtable", methods=["POST"])
+def newtable():
 
- 
+    # Get parameters sent, concatenate them into a string to create the table
+    tablename = request.form.get("tablename")
+    column_number = int(request.form.get("column_number"))    
+    templist = []
+    for i in range(column_number):
+        column_name = request.form.get("column {}".format(i))
+
+        # Returns error if first char from column name is a digit, sqlite does not allow it
+        if column_name[0].isdigit():
+            return render_template("error.html")
+        datatype = request.form.get("{}".format(i))
+        parameters_join = " ".join([column_name, datatype])
+        templist.append(parameters_join)
+    table_parameters = ", ".join(templist) 
+
+    # Execute command to create table
+    c.execute("CREATE TABLE {}({})".format(tablename, table_parameters))
+    con.commit()  
+    return render_template("created.html") 
+
+
+
