@@ -5,7 +5,7 @@ Todo list:
 
     - Implement functionalities
         - Improve injection security (mainly in the "Delete row" and "Add values" functionalities)        
-        - Drop table
+        - Drop table - use get method
     
     - Frontend improvements
         - Layout

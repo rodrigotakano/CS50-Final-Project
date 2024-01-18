@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    DROP
+{% endblock %}
+
+{% block main %}
+
+    <div>Are you sure you want to delete the {{ tablename }} table?</div>
+    <form action="/droptable" method="POST">
+        <input class="btn btn-primary" type="submit" value="Yes">        
+        <input type="hidden" name="table" value="{{ tablename }}">
+    </form>
+    <a href="/view" class="btn btn-primary" type="submit">No</a>
+
+{% endblock %}

@@ -8,7 +8,7 @@
 
     <div>Successfully created table!</div>
     <div>
-        <a href="/table/{{ tablename }}">Return to table</a> 
+        <a href="{{ url_for('tableview', tablename = tablename )  }}">Return to table</a> 
     </div>
 
 {% endblock %}

@@ -146,7 +146,22 @@ def newtable():
     # Execute command to create table
     c.execute("CREATE TABLE {}({})".format(tablename, table_parameters))
     con.commit()  
-    return render_template("created.html") 
+    return render_template("created.html", tablename = tablename) 
 
-
-
+@app.route("/droptable", methods=["GET", "POST"])
+def drop():
+    if request.method == "GET":
+        tablename = request.args.get('table')
+        return render_template("drop.html", tablename = tablename)
+    
+    elif request.method == "POST":
+        tablename = request.form.get("table")
+        if injection_check(tablename):
+            c.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+            table = [row[0] for row in c]
+            if tablename in table:
+                print(tablename)
+                c.execute("DROP TABLE {}".format(tablename))
+                return render_template("dropped.html")
+        else:
+            return render_template("error.html")

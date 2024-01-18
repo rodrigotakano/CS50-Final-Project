@@ -21,9 +21,18 @@
     </head>
 
     <body>
-
-        <main class="container-fluid py-5 text-center">
-            {% block main %}{% endblock %}
-        </main>
         
+        <nav class="navbar" style="background-color: #1187d0; padding-left: 0px">
+            <div class="container-fluid">     
+                <div class="d-flex ms-5">
+                    <a class="navbar-brand" href="#">SQL Manager</a>         
+                    <a class="nav-link" href="/">Homepage</a>     
+                </div>             
+            </div>
+        </nav>
+
+        <main class="container-fluid" style="background-color: #1187d0">
+            {% block main %}{% endblock %}
+        </main>  
+
     </body>

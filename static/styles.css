@@ -1,3 +1,17 @@
+.box-round-blue{
+    background-color:#cbe8fa;
+    border-radius: 15px;    
+}
+
+.box-round-white{
+    height: 3rem;
+    background-color:#ffffff;
+    border-radius: 10px;
+    margin-left: 20px; 
+    margin-right: 20px;
+    
+}
+
 table {
     background-color: transparent;
     margin-bottom: 1rem;
@@ -10,3 +24,14 @@ table td {
     vertical-align: middle;
 }
 
+.navbar a{
+    color: rgb(255, 255, 255);
+}
+
+.blue-background {
+    background-color:#1187d0;
+}
+
+.white {
+    color:#ffffff;
+}
