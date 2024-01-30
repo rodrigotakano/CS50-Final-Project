@@ -1,14 +1,26 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    CREATED
+    DROP
 {% endblock %}
 
 {% block main %}
+    <div class="full-width p-3 text-center fs-4" style="background-color: rgb(255, 255, 255);">    
+          
+        <div>Successfully created table!</div>    
+        <a href="{{ url_for('tableview', tablename = tablename )  }}">Go to table</a> 
+        <div>
+            <a href="/">Return to homepage</a>
+        </div> 
+           
+               
 
-    <div>Successfully created table!</div>
-    <div>
-        <a href="{{ url_for('tableview', tablename = tablename )  }}">Return to table</a> 
     </div>
 
 {% endblock %}
+
+
+
+
+
+

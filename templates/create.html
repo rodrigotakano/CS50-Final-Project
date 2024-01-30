@@ -5,14 +5,24 @@
 {% endblock %}
 
 {% block main %}
+    <div class="container p-3">
+        <div class="box-round-blue m-4 p-3">
+            <div class="box-round-white" style="height:auto">
+                <div class="col text-center">
+                    <form class="align-middle p-2 fs-5" action="/create" method="POST">
+                        <label for="tablename">Enter the name of the table</label>
+                        <input type="text" name="tablename">
+                        <label for="column_number">Enter the number of columns</label>
+                        <input type="text" name="column_number">
+                        <input type="Submit" value="Submit">
+                    </form>
+                </div>                
+            </div>
+        </div>
 
-    <form action="/create" method="POST">
-        <label for="tablename">Enter the name of the table</label>
-        <input type="text" name="tablename">
-        <label for="column_number">Enter the number of columns</label>
-        <input type="text" name="column_number">
-        <input type="Submit" value="Submit">
-    </form>
+        
+    </div>
+    
 
 
 {% endblock %}

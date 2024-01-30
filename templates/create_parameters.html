@@ -5,23 +5,30 @@
 {% endblock %}
 
 {% block main %}
-
-    <form action="/newtable" method="POST">
-        {% for i in range(column_number) %}
-            <label for="column {{ loop.index0 }}">Enter the name of the column</label>
-            <input type="text" name="column {{ loop.index0 }}">
-            <label for="{{ loop.index0 }}">Choose the column datatype</label>            
-                <select name="{{ loop.index0 }}">
-                    {% for i in datatypes %}
-                        <option value="{{ i }}">{{ i }}</option>
+    <div class="container p-2">
+        <div class="box-round-blue m-4 p-3 text-center fs-4">            
+                <form action="/newtable" method="POST">
+                    {% for i in range(column_number) %}
+                    <div class="box-round-white m-3 p-2" style="height:auto">
+                        <label for="column {{ loop.index0 }}">Enter the name of the column</label>
+                        <input type="text" name="column {{ loop.index0 }}">
+                        <label for="{{ loop.index0 }}">Choose the column datatype</label>            
+                            <select name="{{ loop.index0 }}">
+                                {% for i in datatypes %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        <br>  
+                    </div>          
                     {% endfor %}
-                </select>
-            <br>            
-        {% endfor %}
-        <input type="hidden" name="tablename" value="{{ tablename }}">
-        <input type="hidden" name="column_number" value="{{ column_number }}">
-        <input type="Submit" value="Submit">
-    </form>
+                    <input type="hidden" name="tablename" value="{{ tablename }}">
+                    <input type="hidden" name="column_number" value="{{ column_number }}">
+                    <input type="Submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+    
 
 
 {% endblock %}

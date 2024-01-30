@@ -6,10 +6,7 @@
 .box-round-white{
     height: 3rem;
     background-color:#ffffff;
-    border-radius: 10px;
-    margin-left: 20px; 
-    margin-right: 20px;
-    
+    border-radius: 10px;  
 }
 
 table {
@@ -34,4 +31,19 @@ table td {
 
 .white {
     color:#ffffff;
+}
+
+.box-full{
+    width: 100%;
+    background-color: #ffffff;
+    margin: 0;
+}
+
+.full-width{
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }

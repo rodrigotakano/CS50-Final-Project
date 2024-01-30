@@ -43,8 +43,7 @@ def tableview(tablename):
         for index, i in enumerate(table_shown):
             table_rowid.append(table_shown[index][0])
             table_temp.append(table_shown[index][1:])               
-        table_shown = table_temp
-        print(table_rowid)             
+        table_shown = table_temp                   
         
         column_names = [description[0] for description in table.description[1:]]  
              
@@ -130,23 +129,29 @@ def newtable():
 
     # Get parameters sent, concatenate them into a string to create the table
     tablename = request.form.get("tablename")
-    column_number = int(request.form.get("column_number"))    
-    templist = []
-    for i in range(column_number):
-        column_name = request.form.get("column {}".format(i))
 
-        # Returns error if first char from column name is a digit, sqlite does not allow it
-        if column_name[0].isdigit():
-            return render_template("error.html")
-        datatype = request.form.get("{}".format(i))
-        parameters_join = " ".join([column_name, datatype])
-        templist.append(parameters_join)
-    table_parameters = ", ".join(templist) 
+    # Check for user injected malicious characters
+    if injection_check(tablename):
+        print(tablename)
+        column_number = int(request.form.get("column_number"))    
+        templist = []
+        for i in range(column_number):
+            column_name = request.form.get("column {}".format(i))
 
-    # Execute command to create table
-    c.execute("CREATE TABLE {}({})".format(tablename, table_parameters))
-    con.commit()  
-    return render_template("created.html", tablename = tablename) 
+            # Returns error if first char from column name is a digit, sqlite does not allow it
+            if column_name[0].isdigit():
+                return render_template("error.html")
+            datatype = request.form.get("{}".format(i))
+            parameters_join = " ".join([column_name, datatype])
+            templist.append(parameters_join)
+        table_parameters = ", ".join(templist) 
+
+        # Execute command to create table
+        c.execute("CREATE TABLE {}({})".format(tablename, table_parameters))
+        con.commit()  
+        return render_template("created.html", tablename = tablename) 
+    else:
+        return render_template("error.html")
 
 @app.route("/droptable", methods=["GET", "POST"])
 def drop():

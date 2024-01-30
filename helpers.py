@@ -1,5 +1,5 @@
 def injection_check(input_string):
-    chars = ["'", "-"]
+    chars = ["'", "-", " "]
     flag = 0
     for i in input_string:
         for j in chars:

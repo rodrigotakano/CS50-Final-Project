@@ -6,54 +6,59 @@
 
 {% block main %} 
 
-<div class="d-flex align-items-center">
-    <div class="container text-center">        
-        Add row to table <br>
-        <div class="row">
-            <table>
-                <form action="/add" method="post">
-                    {% for column in column_names %}
-                        <div class="col">                        
-                            <input type="text" name="{{ loop.index0 }}">       
-                        </div>
-                    {% endfor %}
-                    <input type="hidden" name="table" value="{{ tablename }}">
-                    <input type="hidden" name="column" value="{{ column_names }}">
-                    <input type="submit" value="Add">
-                </form>
-
-            </table>
+<div class="container-fluid p-3">
+    <div class="box-round-blue m-4 p-2" style="height:auto">        
+        <div class="row justify-content-start mx-2 pt-3">
+            <div class="col-sm text-start h4">Add row to table</div>
         </div>
-    </div>
-</div>
-
-
-<table>    
-    <thead>
-        <tr> 
-            {% for column in column_names %}           
-                <th>{{ column }}</th>
-            {% endfor %}
-        </tr>           
-    </thead>
-    
-    <tbody>
-        {% for tpl in table_shown %}
-            <form action="/delete" method="post">
-                <tr>                
-                    {% for lst in tpl %}
-                        <td>{{ lst }}</td>                    
-                    {% endfor %}                      
-                    <td>
-                        <input type="submit" value="Delete Row">                        
+         
+        <div class="box-round-white m-3 overflow-auto" style="height:auto;">     
+            <form action="/add" method="post" style="padding-top:0.1rem;">                
+                <div class="row justify-content-start m-1 fs-5">
+                    {% for column in column_names %} 
+                        <div class="col-sm-auto text-start m-1">
+                            {{ column }}                                                    
+                            <input type="text" name="{{ loop.index0 }}">       
+                        </div>                        
+                    {% endfor %}
+                    <div class="col-sm-auto text-start m-1">  
                         <input type="hidden" name="table" value="{{ tablename }}">
-                        <input type="hidden" name="rowid" value="{{ table_rowid[loop.index0] }}"
-                    </td>                                                                                        
-                </tr>
-            </form>
-        {% endfor %} 
-                                      
-    </tbody>
-</table>
+                        <input type="hidden" name="column" value="{{ column_names }}">
+                        <input type="submit" value="Add">
+                    </div>
+                </div>              
+            </form> 
+        </div>
+        
+
+        <div class="box-round-white m-3 p-3 overflow-auto" style="height:auto">   
+            <table class="table table-hover table-striped"> 
+                <thead class="fs-4"> 
+                    <tr>
+                        {% for column in column_names %}                            
+                            <th scope="col">{{ column }}</th>  
+                        {% endfor %}   
+                    </tr>  
+                </thead>    
+                <tbody>       
+                    {% for tpl in table_shown %}
+                        <tr>                                                                      
+                            {% for lst in tpl %}
+                                <td>{{ lst }}</td>                                                 
+                            {% endfor %}                            
+                            <td>
+                                <form action="/delete" method="post"> 
+                                    <input type="submit" value="Delete Row">                        
+                                    <input type="hidden" name="table" value="{{ tablename }}">
+                                    <input type="hidden" name="rowid" value="{{ table_rowid[loop.index0] }}"> 
+                                </form>   
+                            </td>                                                                                                  
+                        </tr>
+                    {% endfor %} 
+                </tbody>
+            </div>            
+        </table>  
+    </div>  
+</div>
 
 {% endblock %}

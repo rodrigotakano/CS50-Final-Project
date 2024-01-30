@@ -5,12 +5,18 @@
 {% endblock %}
 
 {% block main %}
-
-    <div>Are you sure you want to delete the {{ tablename }} table?</div>
-    <form action="/droptable" method="POST">
-        <input class="btn btn-primary" type="submit" value="Yes">        
-        <input type="hidden" name="table" value="{{ tablename }}">
-    </form>
-    <a href="/view" class="btn btn-primary" type="submit">No</a>
-
+    <div class="full-width p-3 text-center" style="background-color: rgb(255, 255, 255);">    
+        <div class="fs-4">Are you sure you want to delete the {{ tablename }} table?</div>
+        <div class="row justify-content-center p-3">
+            <div class="col-1">
+                <form action="/droptable" method="POST">            
+                    <input class="btn btn-primary" type="submit" value="Yes">        
+                    <input type="hidden" name="table" value="{{ tablename }}">
+                </form>
+            </div>
+            <div class="col-1">
+                <a href="/view" class="btn btn-danger" type="submit">No</a>
+            </div>           
+        </div>
+    </div>
 {% endblock %}
